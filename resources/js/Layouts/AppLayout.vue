@@ -1,9 +1,12 @@
 <script setup>
-import { Link, usePage } from '@inertiajs/vue3';
+import { router, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const drawer = ref(true);
 const page = usePage();
+
+const goTo = (routeName) => router.get(route(routeName));
+const logout = () => router.post(route('logout'));
 </script>
 
 <template>
@@ -14,21 +17,20 @@ const page = usePage();
                     title="Dashboard"
                     prepend-icon="mdi-view-dashboard-outline"
                     :active="route().current('dashboard')"
-                    :href="route('dashboard')"
-                    :as="Link"
+                    @click="goTo('dashboard')"
                 />
                 <VListItem
                     title="Profile"
                     prepend-icon="mdi-account-outline"
-                    :href="route('profile.edit')"
-                    :as="Link"
+                    :active="route().current('profile.edit')"
+                    @click="goTo('profile.edit')"
                 />
             </VList>
         </VNavigationDrawer>
 
         <VAppBar app>
             <VAppBarNavIcon @click="drawer = !drawer" />
-            <VToolbarTitle>{{ $page.props.app?.name ?? 'App' }}</VToolbarTitle>
+            <VToolbarTitle>{{ page.props.app?.name ?? 'App' }}</VToolbarTitle>
             <VSpacer />
             <VMenu>
                 <template #activator="{ props }">
@@ -37,7 +39,8 @@ const page = usePage();
                     </VBtn>
                 </template>
                 <VList>
-                    <VListItem :href="route('logout')" method="post" :as="Link" title="Log Out" />
+                    <VListItem title="Profile" prepend-icon="mdi-account-outline" @click="goTo('profile.edit')" />
+                    <VListItem title="Log Out" prepend-icon="mdi-logout" @click="logout" />
                 </VList>
             </VMenu>
         </VAppBar>

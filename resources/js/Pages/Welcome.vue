@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head, router, usePage } from '@inertiajs/vue3';
 
 defineProps({
     canLogin: {
@@ -33,18 +33,18 @@ const page = usePage();
                 </p>
 
                 <div v-if="canLogin" class="d-flex align-center justify-center ga-4">
-                    <VBtn v-if="page.props.auth.user" :href="route('dashboard')" color="primary" size="large" :as="Link">
-                        Dashboard
-                    </VBtn>
-                    <template v-else>
-                        <VBtn :href="route('login')" color="primary" size="large" variant="tonal" :as="Link">
-                            Log in
-                        </VBtn>
-                        <VBtn v-if="canRegister" :href="route('register')" color="primary" size="large" :as="Link">
-                            Register
-                        </VBtn>
-                    </template>
-                </div>
+    <VBtn v-if="page.props.auth.user" color="primary" size="large" @click="router.get(route('dashboard'))">
+        Dashboard
+    </VBtn>
+    <template v-else>
+        <VBtn color="primary" size="large" variant="tonal" @click="router.get(route('login'))">
+            Log in
+        </VBtn>
+        <VBtn v-if="canRegister" color="primary" size="large" @click="router.get(route('register'))">
+            Register
+        </VBtn>
+    </template>
+</div>
             </VContainer>
         </VMain>
     </VApp>
