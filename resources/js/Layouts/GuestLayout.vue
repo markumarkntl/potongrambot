@@ -4,19 +4,17 @@ import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <div
-        class="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0"
-    >
-        <div>
-            <Link href="/">
-                <ApplicationLogo class="h-20 w-20 fill-current text-gray-500" />
-            </Link>
-        </div>
+    <VApp>
+        <VMain class="d-flex align-center justify-center" style="min-height: 100vh; background-color: #f5f5f5;">
+            <VContainer class="d-flex flex-column align-center" style="max-width: 480px;">
+                <Link href="/" class="mb-6">
+                    <ApplicationLogo style="height: 48px; width: 48px; fill: #616161;" />
+                </Link>
 
-        <div
-            class="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg"
-        >
-            <slot />
-        </div>
-    </div>
+                <!-- Halaman di dalam slot ini (Login.vue, Register.vue, dst)
+                     sudah membungkus kontennya sendiri dengan <VCard>. -->
+                <slot />
+            </VContainer>
+        </VMain>
+    </VApp>
 </template>
