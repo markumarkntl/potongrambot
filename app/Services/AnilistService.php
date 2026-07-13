@@ -64,4 +64,86 @@ class AnilistService
             return $response->json('data.Page');
         });
     }
+
+    public function getAnimeDetail(int $id): array
+    {
+        $cacheKey = "anilist.anime.detail.{$id}";
+
+        return Cache::remember($cacheKey, now()->addHours(6), function () use ($id) {
+            $query = <<<'GRAPHQL'
+            query ($id: Int) {
+                Media(id: $id, type: ANIME) {
+                    id
+                    title {
+                        romaji
+                        english
+                        native
+                    }
+                    description(asHtml: false)
+                    coverImage {
+                        large
+                        extraLarge
+                        color
+                    }
+                    bannerImage
+                    averageScore
+                    meanScore
+                    popularity
+                    favourites
+                    episodes
+                    duration
+                    status
+                    format
+                    season
+                    seasonYear
+                    genres
+                    studios(isMain: true) {
+                        nodes {
+                            name
+                        }
+                    }
+                    characters(sort: [ROLE, RELEVANCE], perPage: 18) {
+                        edges {
+                            role
+                            node {
+                                id
+                                name {
+                                    full
+                                    native
+                                }
+                                image {
+                                    large
+                                    medium
+                                }
+                            }
+                            voiceActors(language: JAPANESE) {
+                                id
+                                name {
+                                    full
+                                }
+                                image {
+                                    large
+                                    medium
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            GRAPHQL;
+
+            $response = Http::timeout(15)->post($this->endpoint, [
+                'query' => $query,
+                'variables' => [
+                    'id' => $id,
+                ],
+            ]);
+
+            if ($response->failed()) {
+                throw new \RuntimeException('Gagal ambil detail anime dari AniList: '.$response->status());
+            }
+
+            return $response->json('data.Media');
+        });
+    }
 }

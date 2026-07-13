@@ -20,4 +20,13 @@ class AnimeController extends Controller
             'trending' => $trending['media'] ?? [],
         ]);
     }
+
+    public function show(Request $request, int $id)
+    {
+        $anime = $this->anilist->getAnimeDetail($id);
+
+        return Inertia::render('Anime/Show', [
+            'anime' => $anime,
+        ]);
+    }
 }
