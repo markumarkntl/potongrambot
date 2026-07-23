@@ -1,0 +1,200 @@
+/* ============================================================
+   Kynleenim — design tokens & shared styles
+   Dipakai khusus di Welcome.vue, GuestLayout.vue, dan halaman Auth.
+   File & style dashboard (AppLayout.vue) TIDAK memakai kelas-kelas ini,
+   jadi tampilan dashboard tetap seperti semula.
+   ============================================================ */
+
+:root {
+    --k-bg: #0a0a18;
+    --k-bg-alt: #12122c;
+    --k-surface: #191a37;
+    --k-surface-2: #22244c;
+
+    --k-primary: #ff4f81;
+    --k-primary-soft: #ff85ac;
+    --k-violet: #8b5cf6;
+    --k-mint: #45e8c6;
+
+    --k-text: #f3f1fa;
+    --k-text-dim: #a2a4c6;
+    --k-border: rgba(255, 255, 255, 0.09);
+
+    --k-gradient: linear-gradient(135deg, var(--k-primary) 0%, var(--k-violet) 100%);
+
+    --k-font-display: 'Space Grotesk', sans-serif;
+    --k-font-body: 'Plus Jakarta Sans', sans-serif;
+    --k-font-mono: 'JetBrains Mono', monospace;
+}
+
+.k-scope {
+    font-family: var(--k-font-body);
+    color: var(--k-text);
+}
+
+.k-scope h1,
+.k-scope h2,
+.k-scope h3,
+.k-scope h4 {
+    font-family: var(--k-font-display);
+}
+
+.k-eyebrow {
+    font-family: var(--k-font-mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--k-primary-soft);
+}
+
+/* ---------- Dekorasi: tekstur halftone ala cetakan manga ---------- */
+.k-halftone {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.14) 1px, transparent 1.4px);
+    background-size: 14px 14px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+    pointer-events: none;
+}
+
+/* ---------- Dekorasi: glow blob ---------- */
+.k-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.55;
+    pointer-events: none;
+}
+.k-glow--pink { background: var(--k-primary); }
+.k-glow--violet { background: var(--k-violet); }
+
+/* ---------- Dekorasi: kelopak sakura jatuh ---------- */
+@keyframes k-petal-fall {
+    0% { transform: translateY(-10%) translateX(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.9; }
+    100% { transform: translateY(110vh) translateX(40px) rotate(320deg); opacity: 0; }
+}
+
+.k-petal {
+    position: absolute;
+    top: -5%;
+    width: 10px;
+    height: 12px;
+    background: linear-gradient(135deg, var(--k-primary-soft), var(--k-primary));
+    border-radius: 60% 40% 60% 40% / 60% 40% 60% 40%;
+    animation: k-petal-fall linear infinite;
+    pointer-events: none;
+    opacity: 0.85;
+}
+
+/* ---------- Dekorasi: kartu mengambang ---------- */
+@keyframes k-float {
+    0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+    50% { transform: translateY(-14px) rotate(var(--rot, 0deg)); }
+}
+.k-float-card { animation: k-float 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+    .k-petal, .k-float-card { animation: none; }
+}
+
+/* ---------- Brand / logo ---------- */
+.k-logo-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--k-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+    flex-shrink: 0;
+}
+.k-logo-mark--lg { width: 44px; height: 44px; border-radius: 12px; }
+
+.k-brand {
+    font-family: var(--k-font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+    color: var(--k-text);
+}
+.k-brand--sm { font-size: 1rem; }
+
+.k-gradient-text {
+    background: var(--k-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.k-nav-link {
+    color: var(--k-text-dim);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.k-nav-link:hover { color: var(--k-text); }
+
+/* ---------- Tombol custom di atas VBtn Vuetify ---------- */
+.v-btn.k-btn-gradient {
+    background: var(--k-gradient) !important;
+    color: #fff !important;
+    text-transform: none;
+    font-weight: 600;
+    letter-spacing: 0;
+    border-radius: 999px;
+    box-shadow: 0 10px 24px -8px rgba(255, 79, 129, 0.55);
+}
+.v-btn.k-btn-gradient:hover { filter: brightness(1.06); }
+
+.v-btn.k-btn-outline {
+    border: 1.5px solid var(--k-border);
+    color: var(--k-text) !important;
+    text-transform: none;
+    font-weight: 600;
+    border-radius: 999px;
+}
+.v-btn.k-btn-outline:hover { border-color: var(--k-primary); }
+
+.v-btn.k-text-btn {
+    color: var(--k-text-dim) !important;
+    text-transform: none;
+    font-weight: 600;
+}
+.v-btn.k-text-btn:hover { color: var(--k-text) !important; }
+
+/* ---------- Kartu auth (Login/Register/dll) ---------- */
+.k-auth-card {
+    background: var(--k-surface) !important;
+    border: 1px solid var(--k-border) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55) !important;
+}
+.k-auth-title {
+    font-family: var(--k-font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--k-text);
+}
+.k-auth-sub {
+    color: var(--k-text-dim);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+.k-auth-footer {
+    text-align: center;
+    color: var(--k-text-dim);
+    font-size: 0.88rem;
+}
+.k-link {
+    color: var(--k-text-dim);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+}
+.k-link:hover { color: var(--k-primary-soft); }
+.k-link--strong { color: var(--k-primary-soft); font-weight: 600; }

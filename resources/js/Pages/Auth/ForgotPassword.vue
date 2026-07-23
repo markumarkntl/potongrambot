@@ -5,14 +5,10 @@ import { Head, useForm } from '@inertiajs/vue3';
 defineOptions({ layout: GuestLayout });
 
 defineProps({
-    status: {
-        type: String,
-    },
+    status: { type: String },
 });
 
-const form = useForm({
-    email: '',
-});
+const form = useForm({ email: '' });
 
 const submit = () => {
     form.post(route('password.email'));
@@ -20,17 +16,17 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Forgot Password" />
+    <Head title="Lupa Kata Sandi" />
 
-    <VCard width="100%" title="Forgot Password">
-        <VCardText>
-            <p class="text-body-2 mb-4">
-                Forgot your password? No problem. Just let us know your email
-                address and we will email you a password reset link that will
-                allow you to choose a new one.
+    <VCard width="100%" class="k-auth-card" elevation="0">
+        <VCardText class="pa-8">
+            <p class="k-eyebrow mb-3">RESET AKSES</p>
+            <h1 class="k-auth-title mb-2">Lupa Kata Sandi?</h1>
+            <p class="k-auth-sub mb-6">
+                Nggak masalah. Masukkan email akunmu, nanti kami kirim tautan buat bikin kata sandi baru.
             </p>
 
-            <VAlert v-if="status" type="success" variant="tonal" class="mb-4">
+            <VAlert v-if="status" type="success" variant="tonal" class="mb-5" density="comfortable">
                 {{ status }}
             </VAlert>
 
@@ -39,17 +35,17 @@ const submit = () => {
                     v-model="form.email"
                     label="Email"
                     type="email"
+                    variant="outlined"
+                    prepend-inner-icon="mdi-email-outline"
                     :error-messages="form.errors.email"
                     autofocus
                     autocomplete="username"
-                    class="mb-4"
+                    class="mb-6"
                 />
 
-                <div class="d-flex justify-end">
-                    <VBtn type="submit" color="primary" :loading="form.processing">
-                        Email Password Reset Link
-                    </VBtn>
-                </div>
+                <VBtn type="submit" size="large" block class="k-btn-gradient" :loading="form.processing">
+                    Kirim Tautan Reset
+                </VBtn>
             </VForm>
         </VCardText>
     </VCard>

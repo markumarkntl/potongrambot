@@ -14,36 +14,65 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Register" />
+    <Head title="Daftar" />
 
-    <VCard width="100%" max-width="440" elevation="6" rounded="lg">
+    <VCard width="100%" class="k-auth-card" elevation="0">
         <VCardText class="pa-8">
-            <div class="text-center mb-6">
-                <h4 class="text-h4 font-weight-bold mb-1">Buat Akun 🚀</h4>
-                <p class="text-body-2 text-medium-emphasis">Isi data di bawah untuk membuat akun baru</p>
-            </div>
+            <p class="k-eyebrow mb-3">GABUNG SEKARANG</p>
+            <h1 class="k-auth-title mb-2">Buat Akun Baru</h1>
+            <p class="k-auth-sub mb-6">Gratis, cuma butuh kurang dari semenit.</p>
 
             <VForm @submit.prevent="submit">
-                <VTextField v-model="form.name" label="Nama" prepend-inner-icon="mdi-account-outline" :error-messages="form.errors.name" autofocus autocomplete="name" class="mb-3" />
-                <VTextField v-model="form.email" label="Email" type="email" prepend-inner-icon="mdi-email-outline" :error-messages="form.errors.email" autocomplete="username" class="mb-3" />
+                <VTextField
+                    v-model="form.name"
+                    label="Nama"
+                    variant="outlined"
+                    prepend-inner-icon="mdi-account-outline"
+                    :error-messages="form.errors.name"
+                    autofocus
+                    autocomplete="name"
+                    class="mb-4"
+                />
+                <VTextField
+                    v-model="form.email"
+                    label="Email"
+                    type="email"
+                    variant="outlined"
+                    prepend-inner-icon="mdi-email-outline"
+                    :error-messages="form.errors.email"
+                    autocomplete="username"
+                    class="mb-4"
+                />
                 <VTextField
                     v-model="form.password"
-                    label="Password"
+                    label="Kata Sandi"
                     :type="showPassword ? 'text' : 'password'"
+                    variant="outlined"
                     prepend-inner-icon="mdi-lock-outline"
                     :append-inner-icon="showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
                     :error-messages="form.errors.password"
                     autocomplete="new-password"
-                    class="mb-3"
+                    class="mb-4"
                     @click:append-inner="showPassword = !showPassword"
                 />
-                <VTextField v-model="form.password_confirmation" label="Konfirmasi Password" :type="showPassword ? 'text' : 'password'" prepend-inner-icon="mdi-lock-check-outline" :error-messages="form.errors.password_confirmation" autocomplete="new-password" class="mb-5" />
+                <VTextField
+                    v-model="form.password_confirmation"
+                    label="Konfirmasi Kata Sandi"
+                    :type="showPassword ? 'text' : 'password'"
+                    variant="outlined"
+                    prepend-inner-icon="mdi-lock-check-outline"
+                    :error-messages="form.errors.password_confirmation"
+                    autocomplete="new-password"
+                    class="mb-6"
+                />
 
-                <VBtn type="submit" color="primary" size="large" block rounded="lg" :loading="form.processing">Register</VBtn>
+                <VBtn type="submit" size="large" block class="k-btn-gradient" :loading="form.processing">
+                    Daftar
+                </VBtn>
 
-                <p class="text-center text-body-2 mt-6">
+                <p class="k-auth-footer mt-6">
                     Sudah punya akun?
-                    <Link :href="route('login')" class="text-decoration-none font-weight-medium">Login di sini</Link>
+                    <Link :href="route('login')" class="k-link k-link--strong">Masuk di sini</Link>
                 </p>
             </VForm>
         </VCardText>

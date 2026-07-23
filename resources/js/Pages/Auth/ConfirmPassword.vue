@@ -4,41 +4,40 @@ import { Head, useForm } from '@inertiajs/vue3';
 
 defineOptions({ layout: GuestLayout });
 
-const form = useForm({
-    password: '',
-});
+const form = useForm({ password: '' });
 
 const submit = () => {
-    form.post(route('password.confirm'), {
-        onFinish: () => form.reset(),
-    });
+    form.post(route('password.confirm'), { onFinish: () => form.reset() });
 };
 </script>
 
 <template>
-    <Head title="Confirm Password" />
+    <Head title="Konfirmasi Kata Sandi" />
 
-    <VCard width="100%" title="Confirm Password">
-        <VCardText>
-            <p class="text-body-2 mb-4">
-                This is a secure area of the application. Please confirm your
-                password before continuing.
+    <VCard width="100%" class="k-auth-card" elevation="0">
+        <VCardText class="pa-8">
+            <p class="k-eyebrow mb-3">AREA AMAN</p>
+            <h1 class="k-auth-title mb-2">Konfirmasi Kata Sandi</h1>
+            <p class="k-auth-sub mb-6">
+                Ini area yang lebih sensitif. Masukkan kata sandimu dulu sebelum lanjut.
             </p>
 
             <VForm @submit.prevent="submit">
                 <VTextField
                     v-model="form.password"
-                    label="Password"
+                    label="Kata Sandi"
                     type="password"
+                    variant="outlined"
+                    prepend-inner-icon="mdi-lock-outline"
                     :error-messages="form.errors.password"
                     autocomplete="current-password"
                     autofocus
-                    class="mb-4"
+                    class="mb-6"
                 />
 
-                <div class="d-flex justify-end">
-                    <VBtn type="submit" color="primary" :loading="form.processing">Confirm</VBtn>
-                </div>
+                <VBtn type="submit" size="large" block class="k-btn-gradient" :loading="form.processing">
+                    Konfirmasi
+                </VBtn>
             </VForm>
         </VCardText>
     </VCard>
